@@ -12,3 +12,11 @@ n = 75 and k = 4
  Binary Representation of n = 0..01001011 
  Bitwise XOR of two numbers = 0..01000011
  SRC:https://www.geeksforgeeks.org/toggling-k-th-bit-number/
+
+Program to Convert Integer Values into Binary
+Input:  = 45
+Output: = 101101
+
+Input:  = 32
+Output: = 100000
+Integer.toBinaryString(num)
