@@ -1,0 +1,54 @@
+Code
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int [] ans={-1,-1};
+        ans[0]=searchfirst(nums,target);
+        ans[1]=searchlast(nums,target);
+        return ans;
+    }
+    public int searchfirst(int[]nums,int target){
+        int low=0;
+        int high=nums.length-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(nums[mid]>target){
+                
+                 high=mid-1;
+            }
+            if(nums[mid]<target){
+               low=mid+1;
+            }
+            if(nums[mid]==target){
+                if(mid==0 || nums[mid]!=nums[mid-1]){
+                    return mid; 
+                }
+                else{
+                    high=mid-1; //left side
+                }
+            }
+        }return -1;
+    }
+    public int searchlast(int[]nums,int target){
+        int low=0;
+        int high=nums.length-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(nums[mid]>target){
+                high=mid-1;
+            }
+            if(nums[mid]<target){
+                
+                low=mid+1;
+            }
+            if(nums[mid]==target){
+                if(mid==nums.length-1 || nums[mid]!=nums[mid+1]){
+                    return mid; 
+                }
+                else{
+                    low=mid+1; //right side
+                }
+            }
+        }return -1;
+    }
+
+}
