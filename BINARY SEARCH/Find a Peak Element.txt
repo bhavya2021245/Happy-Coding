@@ -1,0 +1,45 @@
+Intuition
+This array is not sorted so yaa the first intuition will not be binary search but if we notice carefully we have been asked to give only 1 peak element.So we just have to be sure that the side we decide to search on will have peak element might be there are peak elements on both sides.
+
+Approach
+first we will discuss the approach in detail which will cover why we are using binary search here.
+for eg the arr[mid] is not peak element this can be possible if it is less than arr[mid-1] or arr[mid+1] or both
+So lets take for case less than arr[mid+1] so might be the array from this position till high is monotonically increasing or there will be a drip. in both the cases it is guaranteed to have peak element same for arr[mid-1].
+at last we have to search on side which is greater than [mid]
+it is also possible if mid is 0 then we have to see if mid is greater than arr[1] and if mid is arr.length-1 then we have to see if mid is greater than arr[arr.length-2].
+
+
+
+Complexity
+Time complexity:
+O(logn)
+Space complexity:
+O(1)
+Code
+class Solution {
+    public int findPeakElement(int[] nums) {
+        if(nums.length==1){
+            return 0;
+        }
+       
+        int low=0;
+        int high=nums.length-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            
+            if((mid==0 || nums[mid]>nums[mid-1]) && (mid==nums.length-1 || nums[mid]>nums[mid+1])){
+                return mid;
+            }
+           
+             
+            if( mid>0 && nums[mid]<nums[mid-1]){
+                 high=mid-1;
+             } 
+             
+             else{
+                 low=mid+1;
+             }   
+            
+        }return -1;
+    }
+}
