@@ -1,0 +1,43 @@
+Intuition
+As we have to work on a sorted array so we can use binary search.
+
+Approach
+We have to return the index where the element would be inserted if not present so if target is less than the arr[0] we will return 0
+If the target is greater than arr[arr.length-1] we will return arr.length.
+If it is present we will simply return its index using simple binary sesarch.
+But if it is not present and should be inserted betweeen the array
+we should return the low.
+EXPLAINATION GIVEN BELOW
+https://www.canva.com/design/DAFlULIn5vo/FLhxtL69SeNem2_IaqKPnw/edit?utm_content=DAFlULIn5vo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+Complexity
+Time complexity:
+O(logn) complexity as on each iteration we are reducing the size of array we have to search in by half.
+Code
+class Solution {
+    public int searchInsert(int[] arr, int target) {
+        int low=0;
+        int high=arr.length-1;
+        if(target>arr[high]){
+            return arr.length;
+        }
+        if(target<arr[low]){
+            return 0;
+        }
+        while(low<=high){
+            //we are using equal to sign here as might be the arr is of length 1 or 2 the mid will be either 
+            //equal to low or high. 
+            int mid=high-(high-low)/2;
+            if(arr[mid]==target){
+                return mid;
+            }
+            else if(arr[mid]>target){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }return low;
+       
+    }
+}
