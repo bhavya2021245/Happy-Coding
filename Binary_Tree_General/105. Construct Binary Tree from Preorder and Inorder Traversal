@@ -1,0 +1,44 @@
+QUES-Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        
+        return buildTreeRecursive(preorder,inorder,0,inorder.length-1);
+    }
+    int preorderIndex=0;
+    public TreeNode buildTreeRecursive(int[]preorder,int[]inorder,int start,int end){
+        if(end<start){
+            return null;
+        }
+        
+       
+         int rootvalue=preorder[preorderIndex++];
+         TreeNode root=new TreeNode(rootvalue);
+         int inorderIndex=0;
+         for(int i=start;i<=end;i++){
+             if(inorder[i]==rootvalue){
+                 inorderIndex=i;
+                 break;
+             }
+         }
+         
+        root.left= buildTreeRecursive(preorder,inorder,start,inorderIndex-1);
+         root.right=buildTreeRecursive(preorder,inorder,inorderIndex+1,end);
+         return root;
+    }
+}
