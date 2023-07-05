@@ -1,0 +1,44 @@
+QUES-Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        
+        return makeTree(inorder,postorder,0,inorder.length-1);
+    }
+    int postorderindex =0;
+    public TreeNode makeTree(int[] inorder, int[] postorder,int start,int end){
+        if(start>end){
+            return null;
+        }
+        
+        
+        int value=postorder[postorder.length-1-(postorderindex++)];
+        TreeNode root=new TreeNode(value);
+        int inorderIndex=0;
+        for(int i=start;i<=end;i++){
+            if(inorder[i]==value){
+                inorderIndex=i;
+                break;
+            }
+        }
+         root.right=makeTree(inorder,postorder,inorderIndex+1,end);
+        root.left=makeTree(inorder,postorder,start,inorderIndex-1);
+       
+        return root;
+    }
+}
